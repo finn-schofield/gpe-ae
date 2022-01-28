@@ -22,5 +22,8 @@ class Reconstruction(Fitness):
     def eval_embedding(self, embedding):
         regr = MLPRegressor(random_state=1, max_iter=500, hidden_layer_sizes=self.hidden)\
             .fit(embedding, var_dict['data_T'].T)
-        return mse(regr.predict(embedding), var_dict['data_T'].T),
+        # embedding[0,0] = np.inf
+        embedding = np.nan_to_num(embedding)
+        pred = regr.predict(embedding)
+        return mse(pred, var_dict['data_T'].T),
 
