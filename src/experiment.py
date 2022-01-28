@@ -43,7 +43,7 @@ def init_data(rd):
 
     hidden = []
 
-    for layer in rd.hidden.split():
+    for layer in rd.hidden.split("-"):
         hidden.append(int(layer))
 
     rd.hidden = hidden
