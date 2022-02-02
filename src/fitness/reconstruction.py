@@ -22,15 +22,19 @@ class Reconstruction(Fitness):
 
     # without split
     def eval_embedding(self, embedding):
-        embedding = np.nan_to_num(embedding)
 
-        regr = MLPRegressor(random_state=1, max_iter=100, hidden_layer_sizes=self.hidden, early_stopping=True)\
-            .fit(embedding, var_dict['data_T'].T)
+        try:
+            embedding = np.nan_to_num(embedding)
 
-        # embedding[0,0] = 1.7976931348623157e+308*2
+            regr = MLPRegressor(random_state=1, max_iter=100, hidden_layer_sizes=self.hidden, early_stopping=True)\
+                .fit(embedding, var_dict['data_T'].T)
 
-        pred = regr.predict(embedding)
-        pred = np.nan_to_num(pred)
+            # embedding[0,0] = 1.7976931348623157e+308*2
 
-        return mse(pred, var_dict['data_T'].T),
+            pred = regr.predict(embedding)
+            pred = np.nan_to_num(pred)
+
+            return mse(pred, var_dict['data_T'].T),
+        except ValueError:
+            return np.inf,
 
