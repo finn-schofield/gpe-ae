@@ -112,7 +112,7 @@ def main():
     embedding = auto_encoder.embedding
     acc = eval_embedding(embedding, rd.labels)
 
-    results = {"accuracy": acc, "time": auto_encoder.time}
+    results = {"accuracy": acc, "time": auto_encoder.time, "size": len(auto_encoder.best)}
 
     write_ind_to_file(auto_encoder.best, str(rd.seed))
     write_embedding_to_file(embedding, str(rd.seed))
