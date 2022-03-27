@@ -117,7 +117,9 @@ def main():
     for tree in auto_encoder.best:
         size += len(tree)
 
-    results = {"accuracy": acc, "time": auto_encoder.time, "size": size}
+    reconstruction = auto_encoder.best.fitness.values[0]
+
+    results = {"accuracy": acc, "time": auto_encoder.time, "size": size, "reconstruction": reconstruction}
 
     write_ind_to_file(auto_encoder.best, str(rd.seed))
     write_embedding_to_file(embedding, str(rd.seed))
